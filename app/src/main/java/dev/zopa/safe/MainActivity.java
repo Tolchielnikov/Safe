@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (inquiry.getText().toString().equals("ola")) {
+                if (inquiry.getText().toString().equals("password")) {
                     startActivity(intent);
                     return;
                 }
-
+//todo proverku adresa,  google poisk
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(inquiry.getText().toString())));
 
             }
