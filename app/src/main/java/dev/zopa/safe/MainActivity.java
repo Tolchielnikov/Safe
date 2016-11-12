@@ -23,7 +23,10 @@ public class MainActivity extends AppCompatActivity {
         inquiry = (EditText) findViewById(R.id.inquiry);
         textView = (TextView) findViewById(R.id.textView);
         search = (Button) findViewById(R.id.search);
+
         final Intent intent = new Intent(this, FishkaActivity.class);
+         final String googleSech = "http://www.google.com.ua/?gfe_rd=cr&ei=-zQnWLq4Je-8zAXEqoKYCg&gws_rd=ssl#q=";
+
 
         search.setOnClickListener(new View.OnClickListener() {
 
@@ -34,8 +37,18 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     return;
                 }
-//todo proverku adresa,  google poisk
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(inquiry.getText().toString())));
+//ne pashet
+                String ok = googleSech + inquiry.getText().toString();
+
+                if  (inquiry.getText().toString().contains("http://")){
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(inquiry.getText().toString())));
+                }else {
+//todo huinya
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(ok)));
+                }
+
+
+
 
             }
         });
