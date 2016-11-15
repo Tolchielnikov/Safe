@@ -10,12 +10,74 @@
     tools:context="dev.zopa.safe.FishkaActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FISHKA "
-        android:id="@+id/textView3"
+        android:text="fishk"
+        android:id="@+id/fishka"
+        android:textSize="150dp"
+        android:textStyle="bold"
+        android:textIsSelectable="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dt"
+        android:id="@+id/dt"
+        android:layout_below="@+id/fishka"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="a2"
+        android:id="@+id/a2"
+        android:layout_below="@+id/fishka"
+        android:layout_toRightOf="@+id/dt"
+        android:layout_toEndOf="@+id/dt" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="a5"
+        android:id="@+id/a5"
+        android:layout_below="@+id/fishka"
+        android:layout_toRightOf="@+id/a2"
+        android:layout_toEndOf="@+id/a2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add"
+        android:id="@+id/button"
+        android:layout_alignTop="@+id/petrol"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/petrol"
+        android:layout_above="@+id/editText2"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="95dp" />
+        android:text="тип/комент."
+        android:layout_toLeftOf="@+id/a5"
+        android:layout_toStartOf="@+id/a5" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="штрих-код"
+        android:layout_alignRight="@+id/petrol"
+        android:layout_alignEnd="@+id/petrol" />
+
 </RelativeLayout>

@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         search = (Button) findViewById(R.id.search);
 
+
         final Intent intent = new Intent(this, FishkaActivity.class);
 
 
@@ -31,17 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (inquiry.getText().toString().equals("password")) {
+
+                if (inquiry.getText().toString().equals("pas")) {
                     startActivity(intent);
                     return;
                 }
 
                 if  (inquiry.getText().toString().contains("http://")){
+
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(inquiry.getText().toString())));
                 }else {
 
                     final String googleSech = "http://www.google.com/#q=" + inquiry.getText().toString();
-
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(googleSech)));
                 }
             }
