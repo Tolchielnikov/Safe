@@ -24,7 +24,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:text="што"
+        android:text="pas"
         android:singleLine="true" />
 
     <TextView

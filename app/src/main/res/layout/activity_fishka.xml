@@ -28,7 +28,7 @@
         android:id="@+id/dt"
         android:layout_below="@+id/fishka"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="false" />
 
     <Button
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         android:id="@+id/a2"
         android:layout_below="@+id/fishka"
         android:layout_toRightOf="@+id/dt"
-        android:layout_toEndOf="@+id/dt" />
+        android:layout_alignParentStart="false" />
 
     <Button
         android:layout_width="wrap_content"
@@ -46,38 +46,112 @@
         android:id="@+id/a5"
         android:layout_below="@+id/fishka"
         android:layout_toRightOf="@+id/a2"
-        android:layout_toEndOf="@+id/a2" />
+        android:layout_toEndOf="@+id/a2"
+        android:layout_alignParentEnd="false" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="add"
-        android:id="@+id/button"
+        android:id="@+id/add"
         android:layout_alignTop="@+id/petrol"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false" />
+
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/petrol"
-        android:layout_above="@+id/editText2"
+        android:text="тип/комент."
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="тип/комент."
-        android:layout_toLeftOf="@+id/a5"
-        android:layout_toStartOf="@+id/a5" />
+        android:layout_marginBottom="69dp"
+        android:layout_toStartOf="@+id/llverRight"
+        android:layout_toLeftOf="@+id/llverRight" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/numberFishka"
+        android:text="штрих-код"
+        android:layout_above="@+id/rgGravity"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="штрих-код"
-        android:layout_alignRight="@+id/petrol"
-        android:layout_alignEnd="@+id/petrol" />
+        android:layout_toLeftOf="@+id/llverRight"
+        android:layout_toStartOf="@+id/llverRight" />
+
+    <RadioGroup
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/rgGravity"
+        android:layout_alignBottom="@+id/add"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/first"
+        android:layout_alignBottom="@+id/add"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:id="@+id/second"
+        android:layout_below="@+id/numberFishka"
+        android:layout_alignRight="@+id/dt"
+        android:layout_alignEnd="@+id/dt" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:id="@+id/third"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/four"
+        android:layout_toStartOf="@+id/four" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:id="@+id/four"
+        android:layout_alignTop="@+id/second"
+        android:layout_alignRight="@+id/a2"
+        android:layout_alignEnd="@+id/a2" /></RadioGroup>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/dt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/add"
+        android:id="@+id/llverLeft"
+        android:layout_alignRight="@+id/a2"
+        android:layout_alignEnd="@+id/a2">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/a5"
+        android:layout_above="@+id/add"
+        android:id="@+id/llverRight"
+        android:layout_alignLeft="@+id/a5"
+        android:layout_alignStart="@+id/a5"
+        android:layout_below="@+id/a5"></LinearLayout>
 
 </RelativeLayout>
