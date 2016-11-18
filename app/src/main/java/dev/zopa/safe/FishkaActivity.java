@@ -8,16 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FishkaActivity extends Activity implements View.OnClickListener {
 
-    Button dt;
-    Button a2;
-    Button a5;
     Button add;
+    Button delBut;
 
     TextView fishka;
 
@@ -27,16 +28,14 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
     EAN13CodeBuilder bb;
 
     LinearLayout aktualLL;
-    LinearLayout llverLeft;
-    LinearLayout llverRight;
+    LinearLayout llverFirst;
+    LinearLayout llverSecond;
+    LinearLayout llverThird;
+    LinearLayout llverFour;
 
-    //todo del radioButt
-    RadioButton four;
-    RadioButton first;
-    RadioButton third;
-    RadioButton second;
     RadioGroup rgGravity;
 
+    Map barCode = new HashMap<String, String>();
 
     int wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT;
 
@@ -45,85 +44,100 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fishka);
 
-        llverLeft = (LinearLayout) findViewById(R.id.llverLeft);
-        llverRight = (LinearLayout) findViewById(R.id.llverRight);
+        llverFirst = (LinearLayout) findViewById(R.id.firstColon);
+        llverSecond = (LinearLayout) findViewById(R.id.secondColon);
+        llverThird = (LinearLayout) findViewById(R.id.thirdColon);
+        llverFour = (LinearLayout) findViewById(R.id.fourColon);
 
         rgGravity = (RadioGroup) findViewById(R.id.rgGravity);
-        first = (RadioButton) findViewById(R.id.first);
-        second = (RadioButton) findViewById(R.id.second);
-        third = (RadioButton) findViewById(R.id.third);
-        four = (RadioButton) findViewById(R.id.four);
-
-        dt = (Button) findViewById(R.id.dt);
-        dt.setOnClickListener(this);
-
-        a2 = (Button) findViewById(R.id.a2);
-        a2.setOnClickListener(this);
-
-        a5 = (Button) findViewById(R.id.a5);
-        a5.setOnClickListener(this);
 
         add = (Button) findViewById(R.id.add);
         add.setOnClickListener(this);
 
-        fishka = (TextView)findViewById(R.id.fishka);
+        delBut = (Button) findViewById(R.id.delBut);
+        delBut.setOnClickListener(this);
+
+        fishka = (TextView) findViewById(R.id.fishka);
         petrol = (EditText) findViewById(R.id.petrol);
         numFishka = (EditText) findViewById(R.id.numberFishka);
 
-        /// установить шрифт штрих-кода
+        // font for bar-code
         Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/Normal2.ttf");
         fishka.setTypeface(font);
     }
 
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+
+        // Listener for dynamic created buttons
+        @Override
+        public void onClick(View view) {
+            bb = new EAN13CodeBuilder((String) barCode.get(Integer.toString(((Button) view).getId())));
+            fishka.setText(bb.getCode());
+        }
+    };
+
+    /***
+     * create new button
+     */
 
     @Override
     public void onClick(View v) {
-
-        switch (v.getId()){
-            case R.id.dt:
-                bb  = new EAN13CodeBuilder("1124958761310");
-                fishka.setText(bb.getCode());
-                break;
-
-            case R.id.a2:
-                bb = new EAN13CodeBuilder("1000340726119");
-                fishka.setText(bb.getCode());
-                break;
-
-            case R.id.a5:
-                bb = new EAN13CodeBuilder("1000000199277");
-                fishka.setText(bb.getCode());
-                break;
-
+        switch (v.getId()) {
             case R.id.add:
                 LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(wrapContent, wrapContent);
                 int benGravity = Gravity.LEFT;
+                aktualLL = llverFirst;
 
 
-                switch (rgGravity.getCheckedRadioButtonId()){
+                switch (rgGravity.getCheckedRadioButtonId()) {
                     case R.id.first:
-                        benGravity = Gravity.LEFT;
-                        aktualLL = llverLeft;
+                        aktualLL = llverFirst;
                         break;
                     case R.id.second:
-                        benGravity = Gravity.CENTER_HORIZONTAL;
-                        aktualLL = llverLeft;
+                        aktualLL = llverSecond;
                         break;
                     case R.id.third:
-                        benGravity = Gravity.LEFT;
-                        aktualLL = llverRight;
+                        aktualLL = llverThird;
                         break;
                     case R.id.four:
-                        benGravity = Gravity.RIGHT;
-                        aktualLL = llverRight;
+                        aktualLL = llverFour;
                         break;
                 }
-                lParams.gravity = benGravity;
-                Button btnNew = new Button(this);
-                btnNew.setText(petrol.getText().toString());
-                //btnNew.setId(Integer.parseInt(petrol.getText().toString()));
-                aktualLL.addView(btnNew, lParams);
+                // check valid number fishka
+                if (numFishka.getText().toString().length() != 13) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Фишка состоит из 13 цифр!!! Вы ввели = " + numFishka.getText().toString().length(),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
 
+                } else if (!numFishka.getText().toString().matches("^\\d{13}$")){
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Фишка состоит только из ЦИФР", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else if (barCode.get(numFishka.getText().toString().substring(6)) != null) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "у Вас уже есть такая фишка", Toast.LENGTH_SHORT);
+                    toast.show();
+                  }else{ // create new button
+                    lParams.gravity = benGravity;
+                    Button btnNew = new Button(this);
+                    btnNew.setText(petrol.getText());
+                    btnNew.setOnClickListener(onClickListener);
+                    aktualLL.addView(btnNew, lParams);
+                    //todo dobavit udalenie
+                    btnNew.setId(Integer.parseInt(numFishka.getText().toString().substring(6)));
+                    barCode.put(numFishka.getText().toString().substring(6), numFishka.getText().toString());
+                }
+                break;
+                 //todo удаляет как-то хуево
+                 // delete button
+            case R.id.delBut:
+               Button delbut = (Button) findViewById(Integer.parseInt(numFishka.getText().toString().substring(6)));
+                delbut.setVisibility(View.GONE);
+                barCode.remove(numFishka.getText().toString().substring(6));
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Фишка удалена", Toast.LENGTH_SHORT);
+                toast.show();
                 break;
         }
     }

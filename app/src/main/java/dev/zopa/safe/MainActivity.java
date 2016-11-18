@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Intent intent = new Intent(this, FishkaActivity.class);
-
+//todo dobavit "save new pas", proverku na domeni
 
         search.setOnClickListener(new View.OnClickListener() {
 

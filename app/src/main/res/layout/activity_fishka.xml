@@ -24,54 +24,34 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dt"
-        android:id="@+id/dt"
-        android:layout_below="@+id/fishka"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="a2"
-        android:id="@+id/a2"
-        android:layout_below="@+id/fishka"
-        android:layout_toRightOf="@+id/dt"
-        android:layout_alignParentStart="false" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="a5"
-        android:id="@+id/a5"
-        android:layout_below="@+id/fishka"
-        android:layout_toRightOf="@+id/a2"
-        android:layout_toEndOf="@+id/a2"
-        android:layout_alignParentEnd="false" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="add"
         android:id="@+id/add"
-        android:layout_alignTop="@+id/petrol"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="false" />
+        android:layout_alignParentStart="false"
+        android:layout_alignTop="@+id/petrol" />
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="97dp"
+        android:text="Del"
+        android:id="@+id/delBut"
+        android:layout_alignBottom="@+id/add"
+        android:layout_toLeftOf="@+id/add"
+        android:layout_toStartOf="@+id/add"
+        android:layout_below="@+id/llverLeft" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/petrol"
-        android:text="тип/комент."
+        android:text="1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="69dp"
-        android:layout_toStartOf="@+id/llverRight"
-        android:layout_toLeftOf="@+id/llverRight" />
+        android:layout_marginBottom="69dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -80,9 +60,7 @@
         android:text="штрих-код"
         android:layout_above="@+id/rgGravity"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/llverRight"
-        android:layout_toStartOf="@+id/llverRight" />
+        android:layout_alignParentStart="true" />
 
     <RadioGroup
         android:layout_height="wrap_content"
@@ -100,7 +78,8 @@
         android:id="@+id/first"
         android:layout_alignBottom="@+id/add"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:checked="true" />
 
     <RadioButton
         android:layout_width="wrap_content"
@@ -126,32 +105,51 @@
         android:text="4"
         android:id="@+id/four"
         android:layout_alignTop="@+id/second"
-        android:layout_alignRight="@+id/a2"
-        android:layout_alignEnd="@+id/a2" /></RadioGroup>
+        android:layout_alignRight="@+id/a0123456789123"
+        android:layout_alignEnd="@+id/a0123456789123" /></RadioGroup>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/dt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/add"
         android:id="@+id/llverLeft"
-        android:layout_alignRight="@+id/a2"
-        android:layout_alignEnd="@+id/a2">
+        android:weightSum="1"
+        android:layout_below="@+id/fishka">
+        <LinearLayout
+            android:layout_weight="0.25"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/firstColon">
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="0.25"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/secondColon">
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/thirdColon"
+            android:layout_weight="0.25">
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/fourColon"
+            android:layout_weight="0.25">
+
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/a5"
-        android:layout_above="@+id/add"
-        android:id="@+id/llverRight"
-        android:layout_alignLeft="@+id/a5"
-        android:layout_alignStart="@+id/a5"
-        android:layout_below="@+id/a5"></LinearLayout>
 
 </RelativeLayout>
