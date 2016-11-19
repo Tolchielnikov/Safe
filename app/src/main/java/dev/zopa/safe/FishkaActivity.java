@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -114,7 +115,7 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Фишка состоит только из ЦИФР", Toast.LENGTH_SHORT);
                     toast.show();
-                } else if (barCode.get(numFishka.getText().toString().substring(6)) != null) {
+                } else if (barCode.containsKey(numFishka.getText().toString().substring(6))) {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "у Вас уже есть такая фишка", Toast.LENGTH_SHORT);
                     toast.show();
@@ -129,15 +130,22 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                     barCode.put(numFishka.getText().toString().substring(6), numFishka.getText().toString());
                 }
                 break;
-                 //todo удаляет как-то хуево
                  // delete button
             case R.id.delBut:
-               Button delbut = (Button) findViewById(Integer.parseInt(numFishka.getText().toString().substring(6)));
-                delbut.setVisibility(View.GONE);
+                if (barCode.containsKey(numFishka.getText().toString().substring(6))) {
+
+                ViewGroup layout = (ViewGroup) findViewById(Integer.parseInt(numFishka.getText().toString().substring(6))).getParent();
+                    layout.removeView((Button) findViewById(Integer.parseInt(numFishka.getText().toString().substring(6))));
                 barCode.remove(numFishka.getText().toString().substring(6));
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Фишка удалена", Toast.LENGTH_SHORT);
                 toast.show();
+
+                }else {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Фишки с таким номером у Вас нет", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 break;
         }
     }
