@@ -1,6 +1,8 @@
 package dev.zopa.safe;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -40,6 +42,10 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
 
     int wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT;
 
+    public static final String APP_PREFERENCES = "mySettings";
+    public static final String APP_PREFERENCES_COUNTER = "button";
+    private SharedPreferences mSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,8 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
         fishka = (TextView) findViewById(R.id.fishka);
         petrol = (EditText) findViewById(R.id.petrol);
         numFishka = (EditText) findViewById(R.id.numberFishka);
+
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         // font for bar-code
         Typeface font = Typeface.createFromAsset(this.getAssets(), "fonts/Normal2.ttf");
@@ -110,12 +118,12 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                             "Фишка состоит из 13 цифр!!! Вы ввели = " + numFishka.getText().toString().length(),
                             Toast.LENGTH_SHORT);
                     toast.show();
-
+//todo kakto huevo hranit kluh poslednie cifri
                 } else if (!numFishka.getText().toString().matches("^\\d{13}$")){
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Фишка состоит только из ЦИФР", Toast.LENGTH_SHORT);
                     toast.show();
-                } else if (barCode.containsKey(numFishka.getText().toString().substring(6))) {
+                } else if (barCode.containsKey(numFishka.getText().toString().substring(4))) {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "у Вас уже есть такая фишка", Toast.LENGTH_SHORT);
                     toast.show();
@@ -125,18 +133,17 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                     btnNew.setText(petrol.getText());
                     btnNew.setOnClickListener(onClickListener);
                     aktualLL.addView(btnNew, lParams);
-                    //todo dobavit udalenie
-                    btnNew.setId(Integer.parseInt(numFishka.getText().toString().substring(6)));
-                    barCode.put(numFishka.getText().toString().substring(6), numFishka.getText().toString());
+                    btnNew.setId(Integer.parseInt(numFishka.getText().toString().substring(4)));
+                    barCode.put(numFishka.getText().toString().substring(4), numFishka.getText().toString());
                 }
                 break;
                  // delete button
             case R.id.delBut:
-                if (barCode.containsKey(numFishka.getText().toString().substring(6))) {
+                if (barCode.containsKey(numFishka.getText().toString().substring(4))) {
 
-                ViewGroup layout = (ViewGroup) findViewById(Integer.parseInt(numFishka.getText().toString().substring(6))).getParent();
-                    layout.removeView((Button) findViewById(Integer.parseInt(numFishka.getText().toString().substring(6))));
-                barCode.remove(numFishka.getText().toString().substring(6));
+                ViewGroup layout = (ViewGroup) findViewById(Integer.parseInt(numFishka.getText().toString().substring(4))).getParent();
+                    layout.removeView((Button) findViewById(Integer.parseInt(numFishka.getText().toString().substring(4))));
+                barCode.remove(numFishka.getText().toString().substring(4));
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Фишка удалена", Toast.LENGTH_SHORT);
                 toast.show();

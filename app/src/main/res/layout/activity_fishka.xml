@@ -21,92 +21,121 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:layout_weight="0.62"
+            android:layout_gravity="left">
+
+            <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/petrol"
+                android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+                android:layout_weight="0.33"
+                android:hint="вид топлива/комент" />
+
+
+            <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/numberFishka"
+                android:layout_above="@+id/rgGravity"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+                android:layout_weight="0.33"
+                android:hint="штрих-код" />
+
+            <RadioGroup
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/rgGravity"
+            android:layout_alignBottom="@+id/add"
+            android:layout_toStartOf="@+id/delBut"
+            android:layout_toLeftOf="@+id/delBut"
+                android:layout_weight="0.33">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:id="@+id/first"
+            android:layout_alignBottom="@+id/add"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:id="@+id/second"
+            android:layout_below="@+id/numberFishka"
+            android:layout_alignRight="@+id/dt"
+            android:layout_alignEnd="@+id/dt" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:id="@+id/third"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/four"
+            android:layout_toStartOf="@+id/four" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:id="@+id/four"
+            android:layout_alignTop="@+id/second"
+            android:layout_alignRight="@+id/a0123456789123"
+            android:layout_alignEnd="@+id/a0123456789123" /></RadioGroup>
+
+        </LinearLayout>
+
+        <Button
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:text="add"
         android:id="@+id/add"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="false"
-        android:layout_alignTop="@+id/petrol" />
+        android:layout_alignTop="@+id/petrol"
+            android:layout_weight="0.19" />
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Del"
-        android:id="@+id/delBut"
-        android:layout_alignBottom="@+id/add"
-        android:layout_toLeftOf="@+id/add"
-        android:layout_toStartOf="@+id/add"
-        android:layout_below="@+id/llverLeft" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Del"
+            android:id="@+id/delBut"
+            android:layout_alignBottom="@+id/add"
+            android:layout_toLeftOf="@+id/add"
+            android:layout_toStartOf="@+id/add"
+            android:layout_below="@+id/llverLeft"
+            android:layout_gravity="right"
+            android:layout_weight="0.19" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/petrol"
-        android:text="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="69dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/numberFishka"
-        android:text="штрих-код"
-        android:layout_above="@+id/rgGravity"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <RadioGroup
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:id="@+id/rgGravity"
-        android:layout_alignBottom="@+id/add"
-        android:layout_toStartOf="@+id/delBut"
-        android:layout_toLeftOf="@+id/delBut">
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:id="@+id/first"
-        android:layout_alignBottom="@+id/add"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:checked="true" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2"
-        android:id="@+id/second"
-        android:layout_below="@+id/numberFishka"
-        android:layout_alignRight="@+id/dt"
-        android:layout_alignEnd="@+id/dt" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3"
-        android:id="@+id/third"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/four"
-        android:layout_toStartOf="@+id/four" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="4"
-        android:id="@+id/four"
-        android:layout_alignTop="@+id/second"
-        android:layout_alignRight="@+id/a0123456789123"
-        android:layout_alignEnd="@+id/a0123456789123" /></RadioGroup>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -114,10 +143,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/add"
         android:id="@+id/llverLeft"
         android:weightSum="1"
-        android:layout_below="@+id/fishka">
+        android:layout_below="@+id/fishka"
+        android:layout_above="@+id/linearLayout">
         <LinearLayout
             android:layout_weight="0.25"
             android:orientation="vertical"

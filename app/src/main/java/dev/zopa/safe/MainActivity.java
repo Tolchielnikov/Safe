@@ -17,14 +17,14 @@ public class MainActivity extends AppCompatActivity {
 
     final Context context = this;
     //todo constatnt
-    String http;
+    private static final String HTTP = "http://";
 
-    String password;
-    TextView textView;
-    TextView newPasText;
-    EditText inputNewPas;
-    EditText inquiry;
-    Button search;
+    public String password;
+    public EditText inquiry;
+    public Button search;
+    public TextView textView;
+    public TextView newPasText;
+    public EditText inputNewPas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         newPasText = (TextView) findViewById(R.id.newPasText);
         search = (Button) findViewById(R.id.search);
         password = "pas";
-        http = "http://";
 
         final Intent intent = new Intent(this, FishkaActivity.class);
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // вводим новый пароль
-                if (inquiry.getText().toString().equals("save a new pas.:")){//ave a new password")){
+                if (inquiry.getText().toString().equals("save a new pas.:")){
 
                     //Получаем вид с файла prompt.xml, который применим для диалогового окна:
                     LayoutInflater li = LayoutInflater.from(context);
@@ -72,25 +71,24 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton("сохранить",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            //Вводим текст и отображаем в строке ввода на основном экране:
+                                            //Вводим текст и сохраняем
                                             password = userInput.getText().toString();
                                         }
                                     });
 
-                    //Создаем AlertDialog:
+                    //create AlertDialog:
                     AlertDialog alertDialog = mDialogBuilder.create();
 
-                    //и отображаем его:
+                    //show dialog
                     alertDialog.show();
 
-                    // todo perepisat` etu huinu
+                    //clear EditText's text
+                      inquiry.setText("");
+
                }else if  (inquiry.getText().toString().matches("^((https?|ftp)\\:\\/\\/)?([a-z0-9]{1})((\\.[a-z0-9-])|([a-z0-9-]))*\\.([a-z]{2,6})(\\/?)$")){
                     if (inquiry.getText().toString().contains("http://")){
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(inquiry.getText().toString())));}else{
-
-          //      }else if (inquiry.getText().toString().matches("^([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}$")){
-
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(http + inquiry.getText().toString())));}
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HTTP + inquiry.getText().toString())));}
 
                 }else {
 
