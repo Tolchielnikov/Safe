@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,14 +13,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     final Context context = this;
-    //todo constatnt
-    private static final String HTTP = "http://";
 
-    public String password;
+    private static final String HTTP = "http://";
+    public static final String PASSWORD = "pas";
+    SharedPreferences mSettings;
+
     public EditText inquiry;
     public Button search;
     public TextView textView;
@@ -36,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         newPasText = (TextView) findViewById(R.id.newPasText);
         search = (Button) findViewById(R.id.search);
-        password = "pas";
-
+        mSettings = getSharedPreferences(PASSWORD, MODE_PRIVATE);
         final Intent intent = new Intent(this, FishkaActivity.class);
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -45,8 +47,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (inquiry.getText().toString().equals(password)) {
+                if (inquiry.getText().toString().equals(mSettings.getString(PASSWORD,""))) {
+
+                    // open FishkaActivity
                     startActivity(intent);
+
+                    //clear EditText's text
+                    inquiry.setText("");
+
                     return;
                 }
 
@@ -72,7 +80,11 @@ public class MainActivity extends AppCompatActivity {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             //Вводим текст и сохраняем
-                                            password = userInput.getText().toString();
+                                            //password = userInput.getText().toString();
+                                            SharedPreferences.Editor ed = mSettings.edit();
+                                            ed.putString(PASSWORD, userInput.getText().toString());
+                                            ed.commit();
+                                            Toast.makeText(MainActivity.this, "Кодовое слово измененно", Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
