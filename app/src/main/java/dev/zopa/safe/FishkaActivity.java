@@ -142,7 +142,6 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                 }else {
                     Toast.makeText(FishkaActivity.this,
                             "Фишки с таким номером у Вас нет", Toast.LENGTH_SHORT).show();
-
                 }
                 break;
         }
