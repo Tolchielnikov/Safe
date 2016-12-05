@@ -58,20 +58,20 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                // вводим новый пароль
+                // input new code word
                 if (inquiry.getText().toString().equals("save a new pas.:")){
 
-                    //Получаем вид с файла prompt.xml, который применим для диалогового окна:
+                    //Get the look with prompt.xml file, which for dialog:
                     LayoutInflater li = LayoutInflater.from(context);
                     View promptsView = li.inflate(R.layout.dialog_savepas, null);
 
-                    //Создаем AlertDialog
+                    //create AlertDialog
                     AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(context);
 
-                    //Настраиваем prompt.xml для нашего AlertDialog:
+                    //setting prompt.xml for AlertDialog:
                     mDialogBuilder.setView(promptsView);
 
-                    //Настраиваем отображение поля для ввода текста в открытом диалоге:
+                    //Set up field mapping for text input in an open dialogue:
                     final EditText userInput = (EditText) promptsView.findViewById(R.id.input_newPas);
 
                     mDialogBuilder
@@ -79,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton("сохранить",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            //Вводим текст и сохраняем
-                                            //password = userInput.getText().toString();
+                                            //input save a code word
                                             SharedPreferences.Editor ed = mSettings.edit();
                                             ed.putString(PASSWORD, userInput.getText().toString());
                                             ed.commit();
