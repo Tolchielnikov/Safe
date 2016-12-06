@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FishkaActivity extends Activity implements View.OnClickListener {
-
-    //todo del
-    final String LOG_TAG = "myLogs";
 
     Button add;
     Button delBut;
@@ -83,8 +79,6 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
 
         Cursor c = db.query(DBHelper.TABLE_NAME, null, null, null, null, null, null);
 
-        Log.d(LOG_TAG, "----- рисуем кол-во кнопок -----  =  "+c.getCount());
-
         c.moveToFirst();
 
         // paint buttons
@@ -113,16 +107,10 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                 llverFour.addView(button, lParams);
             }
 
-            Log.d(LOG_TAG, "------ID-----" + idButton);
-            Log.d(LOG_TAG, "------NAME----- " + nameButton);
-            Log.d(LOG_TAG, "------BARCODE----- " + barCode);
-            Log.d(LOG_TAG, "------POSITION----- " + positionButton);
-            Log.d(LOG_TAG, "************************************************************");
-
             c.moveToNext();
         }
-          c.close();
-        }
+        c.close();
+    }
 
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -130,7 +118,7 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
         // Listener for dynamic created buttons
         @Override
         public void onClick(View view) {
-            bb = new EAN13CodeBuilder( getBarcode(((Button) view).getId())); //barCode.get(Integer.toString(((Button) view).getId())));
+            bb = new EAN13CodeBuilder(getBarcode(((Button) view).getId())); //barCode.get(Integer.toString(((Button) view).getId())));
             fishka.setText(bb.getCode());
         }
     };
@@ -168,23 +156,13 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                         break;
                 }
 
-                // check valid number fishka
-                if (numFishka.getText().toString().length() != 13) {
-                    Toast.makeText(FishkaActivity.this,
-                            "Фишка состоит из 13 цифр!!! Вы ввели = " + numFishka.getText().toString().length(),
-                            Toast.LENGTH_SHORT).show();
-
-                // check for letter
-                } else if (!numFishka.getText().toString().matches("^\\d{13}$")){
-                    Toast.makeText(FishkaActivity.this,
-                            "Фишка состоит только из ЦИФР", Toast.LENGTH_SHORT).show();
-
                 //check for presence
-                } else if ( presence(Integer.parseInt(numFishka.getText().toString().substring(4)))) {
+                if (presence(Integer.parseInt(numFishka.getText().toString().substring(4)))) {
                     Toast.makeText(FishkaActivity.this, "у Вас уже есть такая фишка", Toast.LENGTH_SHORT).show();
 
+                } else if (checkNumbBarcode(numFishka.getText().toString())) {
+
                     // create new button
-                  }else{
                     lParams.gravity = benGravity;
                     Button btnNew = new Button(this);
                     btnNew.setText(petrol.getText());
@@ -206,47 +184,50 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                     petrol.setText("");
                     numFishka.setText("");
                 }
+
                 break;
 
 
-                 // delete button
+            // delete button
             case R.id.delBut:
-                //todo create check method
-                if (presence(Integer.parseInt(numFishka.getText().toString().substring(4)))) {
+                if (checkNumbBarcode(numFishka.getText().toString())) {
 
-                    ViewGroup layout = (ViewGroup) findViewById(Integer.parseInt(numFishka.getText().toString().substring(4))).getParent();
-                    layout.removeView((Button) findViewById(Integer.parseInt(numFishka.getText().toString().substring(4))));
+                    if (presence(Integer.parseInt(numFishka.getText().toString().substring(4)))) {
 
-                    db.delete(DBHelper.TABLE_NAME, DBHelper.KEY_ID + " = " + numFishka.getText().toString().substring(4), null);
+                        ViewGroup layout = (ViewGroup) findViewById(Integer.parseInt(numFishka.getText().toString().substring(4))).getParent();
+                        layout.removeView((Button) findViewById(Integer.parseInt(numFishka.getText().toString().substring(4))));
 
-                Toast.makeText(FishkaActivity.this,
-                        "Фишка удалена", Toast.LENGTH_SHORT).show();
+                        db.delete(DBHelper.TABLE_NAME, DBHelper.KEY_ID + " = " + numFishka.getText().toString().substring(4), null);
 
-                    numFishka.setText("");
+                        Toast.makeText(FishkaActivity.this,
+                                "Фишка удалена", Toast.LENGTH_SHORT).show();
 
-                }else {
-                    Toast.makeText(FishkaActivity.this,
-                            "Фишки с таким номером у Вас нет", Toast.LENGTH_SHORT).show();
+                        numFishka.setText("");
 
+                    } else {
+                        Toast.makeText(FishkaActivity.this,
+                                "Фишки с таким номером у Вас нет", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
                 break;
         }
     }
 
 
-    private boolean presence (int id) {
+    private boolean presence(int id) {
         boolean check;
         Cursor cursor = db.query(DBHelper.TABLE_NAME, new String[]{DBHelper.KEY_ID}, DBHelper.KEY_ID + " = " + id, null, null, null, null);
-        if  (cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             check = true;
-        }else check = false;
+        } else check = false;
 
         cursor.close();
 
         return check;
     }
 
-    private String getBarcode (int id){
+    private String getBarcode(int id) {
         Cursor cursor = db.query(DBHelper.TABLE_NAME, null, DBHelper.KEY_ID + " = ?", new String[]{Integer.toString(id)}, null, null, null);
 
         cursor.moveToFirst();
@@ -256,5 +237,25 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
         cursor.close();
 
         return barCode;
+    }
+
+    private boolean checkNumbBarcode(String numbBarcode) {
+
+        boolean normalBarCode = true;
+
+        // check valid number
+        if (numbBarcode.length() != 13) {
+            Toast.makeText(FishkaActivity.this,
+                    "Фишка состоит из 13 цифр!!! Вы ввели = " + numbBarcode.length(),
+                    Toast.LENGTH_SHORT).show();
+            normalBarCode = false;
+
+            // check for letter
+        } else if (!numbBarcode.matches("^\\d{13}$")) {
+            Toast.makeText(FishkaActivity.this,
+                    "Фишка состоит только из ЦИФР", Toast.LENGTH_SHORT).show();
+            normalBarCode = false;
+        }
+        return normalBarCode;
     }
 }

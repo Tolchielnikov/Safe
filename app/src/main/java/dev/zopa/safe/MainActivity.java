@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (inquiry.getText().toString().equals(mSettings.getString(PASSWORD,""))) {
+                if (inquiry.getText().toString().equals(mSettings.getString(PASSWORD, ""))) {
 
                     // open FishkaActivity
                     startActivity(intent);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // input new code word
-                if (inquiry.getText().toString().equals("save a new pas.:")){
+                if (inquiry.getText().toString().equals("save a new pas.:")) {
 
                     //Get the look with prompt.xml file, which for dialog:
                     LayoutInflater li = LayoutInflater.from(context);
@@ -94,14 +94,16 @@ public class MainActivity extends AppCompatActivity {
                     alertDialog.show();
 
                     //clear EditText's text
-                      inquiry.setText("");
+                    inquiry.setText("");
 
-               }else if  (inquiry.getText().toString().matches("^((https?|ftp)\\:\\/\\/)?([a-z0-9]{1})((\\.[a-z0-9-])|([a-z0-9-]))*\\.([a-z]{2,6})(\\/?)$")){
-                    if (inquiry.getText().toString().contains("http://")){
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(inquiry.getText().toString())));}else{
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HTTP + inquiry.getText().toString())));}
+                } else if (inquiry.getText().toString().matches("^((https?|ftp)\\:\\/\\/)?([a-z0-9]{1})((\\.[a-z0-9-])|([a-z0-9-]))*\\.([a-z]{2,6})(\\/?)$")) {
+                    if (inquiry.getText().toString().contains("http://")) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(inquiry.getText().toString())));
+                    } else {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HTTP + inquiry.getText().toString())));
+                    }
 
-                }else {
+                } else {
 
                     final String googleSech = "http://www.google.com/#q=" + inquiry.getText().toString();
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(googleSech)));

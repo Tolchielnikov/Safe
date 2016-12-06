@@ -1,7 +1,7 @@
 package dev.zopa.safe;
 
 /**
- * Created by zOpa on 15.11.2016.
+ * Created by zOpa
  */
 public class EAN13CodeBuilder {
     private String codeStringValue;

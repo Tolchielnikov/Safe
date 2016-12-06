@@ -12,7 +12,7 @@ public class BrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
 
-        WebView webView = (WebView)findViewById(R.id.webView);
+        WebView webView = (WebView) findViewById(R.id.webView);
         Uri data = getIntent().getData();
         webView.loadUrl(data.toString());
     }
