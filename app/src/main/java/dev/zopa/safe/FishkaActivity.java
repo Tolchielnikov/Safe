@@ -156,33 +156,35 @@ public class FishkaActivity extends Activity implements View.OnClickListener {
                         break;
                 }
 
-                //check for presence
-                if (presence(Integer.parseInt(numFishka.getText().toString().substring(4)))) {
-                    Toast.makeText(FishkaActivity.this, "у Вас уже есть такая фишка", Toast.LENGTH_SHORT).show();
+                if (checkNumbBarcode(numFishka.getText().toString())) {
 
-                } else if (checkNumbBarcode(numFishka.getText().toString())) {
+                    //check for presence
+                    if (presence(Integer.parseInt(numFishka.getText().toString().substring(4)))) {
+                        Toast.makeText(FishkaActivity.this, "у Вас уже есть такая фишка", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    // create new button
-                    lParams.gravity = benGravity;
-                    Button btnNew = new Button(this);
-                    btnNew.setText(petrol.getText());
-                    btnNew.setOnClickListener(onClickListener);
-                    aktualLL.addView(btnNew, lParams);
-                    btnNew.setId(Integer.parseInt(numFishka.getText().toString().substring(4)));
+                        // create new button
+                        lParams.gravity = benGravity;
+                        Button btnNew = new Button(this);
+                        btnNew.setText(petrol.getText());
+                        btnNew.setOnClickListener(onClickListener);
+                        aktualLL.addView(btnNew, lParams);
+                        btnNew.setId(Integer.parseInt(numFishka.getText().toString().substring(4)));
 
-                    // save button's param. in DB
-                    int id = Integer.parseInt(numFishka.getText().toString().substring(4));
-                    String name = petrol.getText().toString();
+                        // save button's param. in DB
+                        int id = Integer.parseInt(numFishka.getText().toString().substring(4));
+                        String name = petrol.getText().toString();
 
-                    cv.put(DBHelper.KEY_ID, id);
-                    cv.put(DBHelper.NAME, name);
-                    cv.put(DBHelper.POSITION, buttonPosition);
-                    cv.put(DBHelper.BARCODE, numFishka.getText().toString());
+                        cv.put(DBHelper.KEY_ID, id);
+                        cv.put(DBHelper.NAME, name);
+                        cv.put(DBHelper.POSITION, buttonPosition);
+                        cv.put(DBHelper.BARCODE, numFishka.getText().toString());
 
-                    db.insert(DBHelper.TABLE_NAME, null, cv);
+                        db.insert(DBHelper.TABLE_NAME, null, cv);
 
-                    petrol.setText("");
-                    numFishka.setText("");
+                        petrol.setText("");
+                        numFishka.setText("");
+                    }
                 }
 
                 break;
